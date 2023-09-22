@@ -1,3 +1,13 @@
+:root {
+  --primary: #5b77ec;
+  --dark: #303f7a;
+  --bl-1: #dee2e5;
+  --bl-2: #949ea6;
+  --bl-3: #666a79;
+  --bl-4: #363b40;
+  --bl-5: #1a1a1a;
+  --alert: #ba261e;
+}
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +17,7 @@
 }
 html {
   font-size: 1px;
-  color: #222;
+  color: var(--bl-5);
 }
 body {
   font-size: 16rem;
@@ -15,4 +25,8 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+ul,
+ol {
+  list-style: none;
 }

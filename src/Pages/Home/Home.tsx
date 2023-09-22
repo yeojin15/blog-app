@@ -1,13 +1,7 @@
-import Header from '../../Components/Header';
-import Footer from '../../Components/Footer';
+import PostList from '../Post/PostList';
 
 const Home = () => {
-  return (
-    <>
-      <Header />
-      <Footer />
-    </>
-  );
+  return <PostList />;
 };
 
 export default Home;

@@ -11,25 +11,32 @@ import Header from './Header';
 import Footer from './Footer';
 import { Contents } from './style';
 
-export default function Router() {
+interface RouterProps {
+  isAuth: boolean;
+}
+export default function Router({ isAuth }: RouterProps) {
   return (
     <>
       <Header />
       <Contents>
         <Routes>
-          <>
-            <Route path='/' element={<Home />} />
-            <Route path='/posts' element={<PostList />} />
-            <Route path='/posts/:id' element={<PostDetail />} />
-            <Route path='/posts/new' element={<PostNew />} />
-            <Route path='/posts/edit/:id' element={<PostEdit />} />
-            <Route path='/profile' element={<ProfilePage />} />
-            <Route path='*' element={<Navigate replace to='/' />} />
-          </>
-          <>
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-          </>
+          {isAuth ? (
+            <>
+              <Route path='/' element={<Home />} />
+              <Route path='/posts' element={<PostList />} />
+              <Route path='/posts/:id' element={<PostDetail />} />
+              <Route path='/posts/new' element={<PostNew />} />
+              <Route path='/posts/edit/:id' element={<PostEdit />} />
+              <Route path='/profile' element={<ProfilePage />} />
+              <Route path='*' element={<Navigate replace to='/' />} />
+            </>
+          ) : (
+            <>
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path='*' element={<Login />} />
+            </>
+          )}
         </Routes>
       </Contents>
       <Footer />

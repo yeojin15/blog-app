@@ -19,7 +19,8 @@
   },
   "include": ["src"],
   "paths": {
-    "$Pages/*": ["Pages/*"],
-    "$Components/*": ["Components/*"]
+    "Pages/*": ["Pages/*"],
+    "Components/*": ["Components/*"],
+    "FirebaseApp/*": ["FirebaseApp/*"]
   }
 }

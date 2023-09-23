@@ -49,3 +49,23 @@ export const FooterBox = styled(HeaderLinks)`
   border: none;
   background: var(--bl-1);
 `;
+export const Loading = styled.div`
+  width: 80rem;
+  height: 80rem;
+  border-radius: 50%;
+  border: 10px solid var(--primary);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+`;
+export const HomeImg = styled.div`
+  width: 100%;
+  height: 400rem;
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+`;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { PostBody, PostHead, PostInfo, PostUnit } from './Post.style';
+import { Link } from 'react-router-dom';
 
 const PostDetail = () => {
   return (
@@ -12,7 +13,9 @@ const PostDetail = () => {
           <div>2023.10.13</div>
         </PostInfo>
         <PostUnit align={'flex-start'}>
-          <li>수정</li>
+          <li>
+            <Link to={`/posts/edit/1`}>수정</Link>
+          </li>
           <li>삭제</li>
         </PostUnit>
       </PostHead>

@@ -1,7 +1,7 @@
-import React from 'react';
+import PostForm from './components/PostForm';
 
 const PostEdit = () => {
-  return <div>PostEdit</div>;
+  return <PostForm />;
 };
 
 export default PostEdit;

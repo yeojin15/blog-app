@@ -28,9 +28,11 @@ export const PostTab = styled.ul`
       opacity: 0;
       transition: 0.3s;
     }
+    &.active,
     &:hover {
       color: var(--primary);
     }
+    &.active:after,
     &:hover:after {
       opacity: 1;
     }
@@ -112,4 +114,42 @@ export const PostBody = styled.div`
   font-size: 16rem;
   line-height: 172%;
   color: var(--bl-3);
+`;
+export const PostInputBox = styled.div`
+  margin-bottom: 30rem;
+  width: 100%;
+`;
+export const PostLabel = styled.label`
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10rem;
+`;
+export const PostInput = styled.input`
+  width: 100%;
+  height: 36rem;
+  padding: 0 10rem;
+  border-radius: 4rem;
+  border: 1px solid var(--bl-1);
+`;
+export const PostTextarea = styled.textarea`
+  width: 100%;
+  resize: none;
+  height: 400rem;
+  border-radius: 4px;
+  border: 1px solid var(--bl-1);
+  padding: 10rem;
+`;
+export const PostButton = styled.button`
+  width: 100%;
+  height: 40rem;
+  border-radius: 4px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 50rem;
+  transition: 0.4s;
+  &:hover {
+    background: var(--dark);
+  }
 `;

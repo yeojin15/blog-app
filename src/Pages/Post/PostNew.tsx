@@ -1,7 +1,7 @@
-import React from 'react';
+import PostForm from './components/PostForm';
 
 const PostNew = () => {
-  return <div>PostNew</div>;
+  return <PostForm />;
 };
 
 export default PostNew;

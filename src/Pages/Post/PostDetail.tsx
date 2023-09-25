@@ -47,7 +47,7 @@ const PostDetail = () => {
             </PostInfo>
             <PostUnit align={'flex-start'}>
               <li>
-                <Link to={`/posts/edit/1`}>수정</Link>
+                <Link to={`/posts/edit/${post?.id}`}>수정</Link>
               </li>
               <li role='presentation' onClick={handleDelete}>
                 삭제

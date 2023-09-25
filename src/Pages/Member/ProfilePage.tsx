@@ -3,9 +3,13 @@ import PostList from '../Post/PostList';
 import { getAuth, signOut } from 'firebase/auth';
 import { app } from 'FirebaseApp';
 import { toast } from 'react-toastify';
+import { useContext } from 'react';
+import AuthContext from 'Context/AuthContext';
 
 const ProfilePage = () => {
-  const auth = getAuth(app);
+  // const auth = getAuth(app);
+  const { user } = useContext(AuthContext);
+
   const onSignOut = async () => {
     try {
       const auth = getAuth(app);
@@ -20,8 +24,8 @@ const ProfilePage = () => {
       <ProfileWrapper>
         <div>
           <div className='profile-img' />
-          <h2>{auth?.currentUser?.email}</h2>
-          <h3>{auth?.currentUser?.displayName || '사용자'}</h3>
+          <h2>{user?.email}</h2>
+          <h3>{user?.displayName || '사용자'}</h3>
         </div>
         <button onClick={onSignOut}>로그아웃</button>
       </ProfileWrapper>

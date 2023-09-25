@@ -1,36 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PostBody, PostHead, PostInfo, PostUnit } from './Post.style';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { PostsProps } from './PostList';
+import { doc, getDoc, deleteDoc } from 'firebase/firestore';
+import { db } from 'FirebaseApp';
+import Loader from 'Components/Loader';
+import { toast } from 'react-toastify';
 
 const PostDetail = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [post, setPost] = useState<PostsProps | null>(null);
+  const getPost = async (id: string) => {
+    if (id) {
+      const docRef = doc(db, 'posts', id);
+      const docSnap = await getDoc(docRef);
+      setPost({ id: docSnap.id, ...(docSnap.data() as PostsProps) });
+    }
+  };
+
+  const handleDelete = async () => {
+    const confirm = window.confirm('포스트를 삭제할까요?');
+    if (confirm && post && id) {
+      await deleteDoc(doc(db, 'posts', id));
+      toast.success('포스트를 삭제했어요');
+      navigate('/');
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      getPost(id);
+    }
+  }, []);
+
   return (
     <>
-      <PostHead>
-        <h2>타이틀틅르ㅡㄹ틑르</h2>
-        <PostInfo>
-          <div className='profile-img' />
-          <div>글쓴이</div>
-          <div>2023.10.13</div>
-        </PostInfo>
-        <PostUnit align={'flex-start'}>
-          <li>
-            <Link to={`/posts/edit/1`}>수정</Link>
-          </li>
-          <li>삭제</li>
-        </PostUnit>
-      </PostHead>
-      <PostBody>
-        It is a long established fact that a reader will be distracted by
-        the readable content of a page when looking at its layout. The
-        point of using Lorem Ipsum is that it has a more-or-less normal
-        distribution of letters, as opposed to using 'Content here, content
-        here', making it look like readable English. Many desktop
-        publishing packages and web page editors now use Lorem Ipsum as
-        their default model text, and a search for 'lorem ipsum' will
-        uncover many web sites still in their infancy. Various versions
-        have evolved over the years, sometimes by accident, sometimes on
-        purpose (injected humour and the like).
-      </PostBody>
+      {post ? (
+        <>
+          <PostHead>
+            <h2>{post?.title}</h2>
+            <PostInfo>
+              <div className='profile-img' />
+              <div>{post?.email}</div>
+              <div>{post?.createAt}</div>
+            </PostInfo>
+            <PostUnit align={'flex-start'}>
+              <li>
+                <Link to={`/posts/edit/1`}>수정</Link>
+              </li>
+              <li role='presentation' onClick={handleDelete}>
+                삭제
+              </li>
+            </PostUnit>
+          </PostHead>
+          <PostBody>{post?.content}</PostBody>
+        </>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };

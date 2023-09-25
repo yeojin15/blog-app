@@ -114,6 +114,7 @@ export const PostBody = styled.div`
   font-size: 16rem;
   line-height: 172%;
   color: var(--bl-3);
+  white-space: pre-wrap;
 `;
 export const PostInputBox = styled.div`
   margin-bottom: 30rem;
@@ -152,4 +153,9 @@ export const PostButton = styled.button`
   &:hover {
     background: var(--dark);
   }
+`;
+export const NoPost = styled.p`
+  text-align: center;
+  font-size: 20rem;
+  font-weight: 600;
 `;

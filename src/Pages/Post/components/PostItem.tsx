@@ -1,36 +1,48 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PostBox, PostInfo, PostThumb, PostUnit } from '../Post.style';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import AuthContext from 'Context/AuthContext';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from 'FirebaseApp';
+import { toast } from 'react-toastify';
 
-const PostItem = ({ index }: { index: number }) => {
+const PostItem = ({
+  index,
+  post,
+  handleDelete,
+}: {
+  index: number;
+  post: any;
+  handleDelete: any;
+}) => {
+  const { user } = useContext(AuthContext);
+  const { id } = useParams();
+
   return (
     <PostBox key={index}>
       <PostInfo>
         <div className='profile-img' />
-        <div>글쓴이</div>
-        <div>2023.10.13</div>
+        <div>{post?.email}</div>
+        <div>{post?.createdAt}</div>
       </PostInfo>
       <PostThumb>
-        <Link to={`/posts/${index}`}>
-          <h2>타이틀{index}</h2>
-          <article>
-            Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum has been the industry's
-            standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type
-            specimen book. It has survived not only five centuries, but
-            also the leap into electronic typesetting, remaining
-            essentially unchanged. It was popularised in the 1960s with the
-            release of Letraset sheets containing Lorem Ipsum passages, and
-            more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </article>
+        <Link to={`/posts/${post?.id}`}>
+          <h2>{post?.title}</h2>
+          <article>{post?.subTitle}</article>
         </Link>
       </PostThumb>
-      <PostUnit>
-        <li>수정</li>
-        <li>삭제</li>
-      </PostUnit>
+      {post?.email === user?.email && (
+        <PostUnit>
+          <li>
+            <Link to={`/posts/edit/${post?.id}`}>수정</Link>
+          </li>
+          <li
+            role='presentation'
+            onClick={() => handleDelete(post.id as string)}>
+            삭제
+          </li>
+        </PostUnit>
+      )}
     </PostBox>
   );
 };

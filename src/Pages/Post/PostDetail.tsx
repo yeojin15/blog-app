@@ -43,7 +43,7 @@ const PostDetail = () => {
             <PostInfo>
               <div className='profile-img' />
               <div>{post?.email}</div>
-              <div>{post?.createAt}</div>
+              <div>{post?.createdAt}</div>
             </PostInfo>
             <PostUnit align={'flex-start'}>
               <li>

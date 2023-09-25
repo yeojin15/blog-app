@@ -1,13 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NoPost, PostTab, PostWrapper } from './Post.style';
 import PostItem from './components/PostItem';
-import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  query,
+  orderBy,
+  where,
+} from 'firebase/firestore';
 import { db } from 'FirebaseApp';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import AuthContext from 'Context/AuthContext';
 
+type TabType = 'all' | 'my';
 interface PostListProps {
   hasNavigation?: boolean;
+  defaultTab?: TabType;
 }
 export interface PostsProps {
   id?: string;
@@ -15,20 +26,39 @@ export interface PostsProps {
   email: string;
   subTitle: string;
   content: string;
-  createAt: string;
+  createdAt: string;
   updatedAt?: string;
   uid?: string;
 }
-type TabType = 'all' | 'my';
 
-const PostList = ({ hasNavigation = true }: PostListProps) => {
-  const [activeTab, setActiveTab] = useState<TabType>('all');
+const PostList = ({
+  hasNavigation = true,
+  defaultTab = 'all',
+}: PostListProps) => {
+  const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
   const [posts, setPosts] = useState<PostsProps[]>([]);
+  const { user } = useContext(AuthContext);
 
   const getPosts = async () => {
-    const datas = await getDocs(collection(db, 'posts'));
     // 초기화
     setPosts([]);
+
+    let postsRef = collection(db, 'posts');
+    let postsQuery;
+
+    if (activeTab === 'my' && user) {
+      //내 글
+      postsQuery = query(
+        postsRef,
+        where('uid', '==', user.uid),
+        orderBy('createdAt', 'desc')
+      );
+    } else {
+      //모든 글
+      postsQuery = query(postsRef, orderBy('createdAt', 'desc'));
+    }
+
+    const datas = await getDocs(postsQuery);
     datas?.forEach((doc) => {
       const dataObj = { ...doc.data(), id: doc.id };
       setPosts((prev) => [...prev, dataObj as PostsProps]);
@@ -50,7 +80,7 @@ const PostList = ({ hasNavigation = true }: PostListProps) => {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [activeTab]);
 
   return (
     <PostWrapper>

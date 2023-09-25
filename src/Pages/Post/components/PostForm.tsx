@@ -59,7 +59,11 @@ const PostForm = () => {
           title,
           subTitle,
           content,
-          updatedAt: new Date()?.toLocaleDateString(),
+          updatedAt: new Date()?.toLocaleDateString('ko', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
         });
         toast?.success('포스팅이 수정되었어요');
         navigate(`/posts/${id}`);
@@ -69,7 +73,11 @@ const PostForm = () => {
           title,
           subTitle,
           content,
-          createAt: new Date()?.toLocaleDateString(),
+          createdAt: new Date()?.toLocaleDateString('ko', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
           email: user?.email,
           uid: user?.uid,
         });

@@ -23,7 +23,7 @@ const PostItem = ({
       <PostInfo>
         <div className='profile-img' />
         <div>{post?.email}</div>
-        <div>{post?.createAt}</div>
+        <div>{post?.createdAt}</div>
       </PostInfo>
       <PostThumb>
         <Link to={`/posts/${post?.id}`}>

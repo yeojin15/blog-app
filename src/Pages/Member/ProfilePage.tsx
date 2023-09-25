@@ -29,7 +29,7 @@ const ProfilePage = () => {
         </div>
         <button onClick={onSignOut}>로그아웃</button>
       </ProfileWrapper>
-      <PostList hasNavigation={false} />
+      <PostList hasNavigation={false} defaultTab='my' />
     </>
   );
 };

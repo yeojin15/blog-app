@@ -1,13 +1,15 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { app } from 'FirebaseApp';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Router from './Components/Router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'Components/Loader';
+import ThemeContext from 'Context/ThemeContext';
 
 function App() {
+  const context = useContext(ThemeContext);
   const auth = getAuth(app);
 
   // auth 체크하기 전에는 로더를 띄워준다
@@ -28,10 +30,10 @@ function App() {
   }, [auth]);
 
   return (
-    <>
+    <div className={context.theme === 'light' ? 'light' : 'dark'}>
       <ToastContainer />
       {init ? <Router isAuth={isAuth} /> : <Loader />}
-    </>
+    </div>
   );
 }
 

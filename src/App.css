@@ -30,3 +30,43 @@ ul,
 ol {
   list-style: none;
 }
+.light {
+  transition: all 0.3s linear;
+  background: #fff;
+}
+.dark {
+  transition: all 0.3s linear;
+  background: var(--bl-4);
+}
+.dark label,
+.dark a,
+.dark div,
+.dark *[role='presentation'],
+.dark input,
+.dark textarea,
+.dark select,
+.dark option,
+.dark h2 {
+  color: #fff;
+}
+.dark .errorbox {
+  color: #f35a51;
+}
+.dark a:hover,
+.dark *[role='presentation']:hover {
+  color: var(--primary);
+}
+.dark header,
+.dark footer {
+  background: var(--bl-4);
+  color: #fff;
+}
+.dark header {
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 4px 12px;
+}
+.dark footer {
+  border-top: 1px solid var(--bl-2);
+}
+.dark .Toastify div {
+  color: var(--bl-5);
+}

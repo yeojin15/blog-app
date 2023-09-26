@@ -18,7 +18,7 @@ import AuthContext from 'Context/AuthContext';
 type TabType = 'all' | 'my';
 interface PostListProps {
   hasNavigation?: boolean;
-  defaultTab?: TabType;
+  defaultTab?: TabType | CategoryType;
 }
 export interface PostsProps {
   id?: string;
@@ -29,13 +29,23 @@ export interface PostsProps {
   createdAt: string;
   updatedAt?: string;
   uid?: string;
+  category?: CategoryType;
 }
+export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
+export const CATEGORIES: CategoryType[] = [
+  'Frontend',
+  'Backend',
+  'Web',
+  'Native',
+];
 
 const PostList = ({
   hasNavigation = true,
   defaultTab = 'all',
 }: PostListProps) => {
-  const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
+  const [activeTab, setActiveTab] = useState<TabType | CategoryType>(
+    defaultTab
+  );
   const [posts, setPosts] = useState<PostsProps[]>([]);
   const { user } = useContext(AuthContext);
 
@@ -53,9 +63,16 @@ const PostList = ({
         where('uid', '==', user.uid),
         orderBy('createdAt', 'desc')
       );
-    } else {
+    } else if (activeTab === 'all') {
       //모든 글
       postsQuery = query(postsRef, orderBy('createdAt', 'desc'));
+    } else {
+      //카테고리에 맞게
+      postsQuery = query(
+        postsRef,
+        where('category', '==', activeTab),
+        orderBy('createdAt', 'desc')
+      );
     }
 
     const datas = await getDocs(postsQuery);
@@ -98,6 +115,15 @@ const PostList = ({
             onClick={() => setActiveTab('my')}>
             나의 글
           </li>
+          {CATEGORIES?.map((category) => (
+            <li
+              key={category}
+              role='presentation'
+              className={activeTab === category ? 'active' : ''}
+              onClick={() => setActiveTab(category)}>
+              {category}
+            </li>
+          ))}
         </PostTab>
       )}
       {posts?.length > 0 ? (

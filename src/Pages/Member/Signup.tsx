@@ -105,7 +105,9 @@ const Signup = () => {
             required
           />
         </PostInputBox>
-        {error && error?.length > 0 && <ErrorBox>{error}</ErrorBox>}
+        {error && error?.length > 0 && (
+          <ErrorBox className='errorbox'>{error}</ErrorBox>
+        )}
         <PostInputBox>
           계정이 이미 있으신가요? <LinkTo to='/login'>로그인</LinkTo>
         </PostInputBox>

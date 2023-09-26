@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { PostBody, PostHead, PostInfo, PostUnit } from './Post.style';
+import {
+  PostBody,
+  PostCategory,
+  PostHead,
+  PostInfo,
+  PostUnit,
+} from './Post.style';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PostsProps } from './PostList';
 import { doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from 'FirebaseApp';
 import Loader from 'Components/Loader';
 import { toast } from 'react-toastify';
+import Comment from 'Components/Comment';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -45,6 +52,9 @@ const PostDetail = () => {
               <div>{post?.email}</div>
               <div>{post?.createdAt}</div>
             </PostInfo>
+            {post?.category && (
+              <PostCategory>{post?.category}</PostCategory>
+            )}
             <PostUnit align={'flex-start'}>
               <li>
                 <Link to={`/posts/edit/${post?.id}`}>수정</Link>
@@ -55,6 +65,7 @@ const PostDetail = () => {
             </PostUnit>
           </PostHead>
           <PostBody>{post?.content}</PostBody>
+          <Comment />
         </>
       ) : (
         <Loader />

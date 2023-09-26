@@ -140,6 +140,19 @@ export const PostTextarea = styled.textarea`
   border: 1px solid var(--bl-1);
   padding: 10rem;
 `;
+export const PostSelect = styled.select`
+  height: 36rem;
+  padding: 0 10rem;
+  border-radius: 4rem;
+  border: 1px solid var(--bl-1);
+`;
+export const PostCategory = styled.span`
+  display: inline-block;
+  padding: 5rem 10rem;
+  border: 1px solid var(--bl-1);
+  border-radius: 50rem;
+  font-size: 12rem;
+`;
 export const PostButton = styled.button`
   width: 100%;
   height: 40rem;

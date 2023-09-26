@@ -4,6 +4,7 @@ import {
   PostInput,
   PostInputBox,
   PostLabel,
+  PostSelect,
   PostTextarea,
 } from '../Post.style';
 import {
@@ -17,13 +18,15 @@ import { db } from 'FirebaseApp';
 import AuthContext from 'Context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { PostsProps } from '../PostList';
+import { CATEGORIES, CategoryType, PostsProps } from '../PostList';
 
 const PostForm = () => {
   const { id } = useParams();
   const [title, setTitle] = useState<string>('');
   const [subTitle, setSubTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [category, setCategory] = useState<CategoryType>('Frontend');
+
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [post, setPost] = useState<PostsProps | null>(null);
@@ -46,6 +49,7 @@ const PostForm = () => {
       setTitle(post?.title);
       setSubTitle(post?.subTitle);
       setContent(post?.content);
+      setCategory(post?.category as CategoryType);
     }
   }, [post]);
 
@@ -64,6 +68,7 @@ const PostForm = () => {
             minute: '2-digit',
             second: '2-digit',
           }),
+          category,
         });
         toast?.success('포스팅이 수정되었어요');
         navigate(`/posts/${id}`);
@@ -80,6 +85,7 @@ const PostForm = () => {
           }),
           email: user?.email,
           uid: user?.uid,
+          category,
         });
         toast?.success('포스팅이 완료되었어요');
         navigate('/');
@@ -90,7 +96,9 @@ const PostForm = () => {
   };
 
   const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const {
       target: { name, value },
@@ -105,6 +113,9 @@ const PostForm = () => {
     if (name === 'content') {
       setContent(value);
     }
+    if (name === 'category') {
+      setCategory(value as CategoryType);
+    }
   };
 
   return (
@@ -118,6 +129,21 @@ const PostForm = () => {
           onChange={onChange}
           required
         />
+      </PostInputBox>
+      <PostInputBox>
+        <PostLabel htmlFor='category'>카테고리</PostLabel>
+        <PostSelect
+          name='category'
+          id='category'
+          onChange={onChange}
+          defaultValue={category}>
+          <option value=''>카테고리를 선택하세요</option>
+          {CATEGORIES?.map((category) => (
+            <option value={category} key={category}>
+              {category}
+            </option>
+          ))}
+        </PostSelect>
       </PostInputBox>
       <PostInputBox>
         <PostLabel htmlFor='subTitle'>소제목</PostLabel>

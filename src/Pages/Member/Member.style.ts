@@ -50,4 +50,5 @@ export const LinkTo = styled(Link)`
 `;
 export const ErrorBox = styled.div`
   color: var(--alert);
+  margin-bottom: 10rem;
 `;

@@ -11,7 +11,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { db } from 'FirebaseApp';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthContext from 'Context/AuthContext';
 
@@ -39,12 +39,12 @@ export interface PostsProps {
   comments?: CommentsInterface[];
 }
 
-export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
+export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'CS';
 export const CATEGORIES: CategoryType[] = [
   'Frontend',
   'Backend',
   'Web',
-  'Native',
+  'CS',
 ];
 
 const PostList = ({

@@ -55,7 +55,7 @@ const PostDetail = () => {
             {post?.category && (
               <PostCategory>{post?.category}</PostCategory>
             )}
-            <PostUnit align={'flex-start'}>
+            <PostUnit $align={'flex-start'}>
               <li>
                 <Link to={`/posts/edit/${post?.id}`}>수정</Link>
               </li>
@@ -65,7 +65,7 @@ const PostDetail = () => {
             </PostUnit>
           </PostHead>
           <PostBody>{post?.content}</PostBody>
-          <Comment />
+          <Comment post={post} getPost={getPost} />
         </>
       ) : (
         <Loader />

@@ -81,11 +81,11 @@ export const PostThumb = styled.div`
 `;
 
 type PostUnitProps = {
-  align?: string;
+  $align?: string;
 };
 export const PostUnit = styled.ul<PostUnitProps>`
   display: flex;
-  justify-content: ${(props) => props.align || 'flex-end'};
+  justify-content: ${(props) => props.$align || 'flex-end'};
   align-items: center;
   gap: 10rem;
   margin-top: 20rem;

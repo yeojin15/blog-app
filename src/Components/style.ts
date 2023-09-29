@@ -75,11 +75,14 @@ export const Loading = styled.div`
 `;
 export const HomeImg = styled.div`
   width: 100%;
-  height: 400rem;
+  height: 450rem;
+  overflow: hidden;
+  position: relative;
   img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
 export const CommentBox = styled.div`

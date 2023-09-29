@@ -1,10 +1,7 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { PostBox, PostInfo, PostThumb, PostUnit } from '../Post.style';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AuthContext from 'Context/AuthContext';
-import { doc, deleteDoc } from 'firebase/firestore';
-import { db } from 'FirebaseApp';
-import { toast } from 'react-toastify';
 
 const PostItem = ({
   index,
@@ -16,7 +13,6 @@ const PostItem = ({
   handleDelete: any;
 }) => {
   const { user } = useContext(AuthContext);
-  const { id } = useParams();
 
   return (
     <PostBox key={index}>
